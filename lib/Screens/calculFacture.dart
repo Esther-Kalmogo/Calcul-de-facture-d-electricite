@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projet_final/Components/MyDrawer.dart'; 
+import 'package:projet_final/Models/facture_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
  
 
 class calculFacture extends StatefulWidget {
@@ -14,6 +16,7 @@ class _calculFactureState extends State<calculFacture> {
   final TextEditingController saisitHeures = TextEditingController();
   final TextEditingController saisitJours = TextEditingController();
   double consommation = 0.0;
+  double prix = 0.0;
  
   
   void calcul() {
@@ -22,9 +25,33 @@ class _calculFactureState extends State<calculFacture> {
       double heures = double.tryParse(saisitHeures.text) ?? 0.0;
       double jours = double.tryParse(saisitJours.text) ?? 0.0;
       consommation = (puissance * heures * jours) / 1000;
+
+      //Calcul du prix de la consommation
+      if (consommation <= 100) {
+        prix = consommation * 0.9; // Tarif de 0,9 dh/kWh pour les 100 premiers kWh
+      } else  if (consommation > 100 && consommation <= 200) {
+        prix = (100 * 0.9)  + ((consommation - 100) * 1.10);
+      } else{
+        prix = (100 * 0.9) + (100 * 1.10) + ((consommation - 200) * 1.30);
+      }
     });
   }
- 
+
+  void enregistrerFacture() {
+    // On récupère la boîte déjà ouverte dans main.dart
+    final box =  Hive.box<Facture>('factures');
+    // On crée un nouvel objet Facture avec les valeurs déjà calculées
+    Facture nouvelleFacture = Facture(
+      date: DateTime.now(),
+      consommation: consommation,
+      prix: prix,
+    );
+    //
+    box.add(nouvelleFacture);
+
+    print('Facture enregistrée : ${nouvelleFacture.consommation} kWh, ${nouvelleFacture.prix} dh, le ${nouvelleFacture.date}');
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -90,6 +117,25 @@ class _calculFactureState extends State<calculFacture> {
               ),
             ),
             const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: enregistrerFacture, 
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(170, 6, 133, 1.0),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
+                child: const Text(
+                  "Enregistrer la facture",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -106,6 +152,15 @@ class _calculFactureState extends State<calculFacture> {
                   const SizedBox(height: 10),
                   Text(
                     '${consommation.toStringAsFixed(2)} kWh',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    '${prix.toStringAsFixed(2)} dh',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
