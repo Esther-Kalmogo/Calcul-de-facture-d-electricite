@@ -32,12 +32,14 @@ Les tarifs par tranche et le taux de taxes appliqués ont été **calibrés et v
 
 ## Installation
 
-\`\`\`bash
-git clone (https://github.com/Esther-Kalmogo/Calcul-de-facture-d-electricite)
-cd wattly
+## Installation
+
+​```bash
+git clone https://github.com/Esther-Kalmogo/Calcul-de-facture-d-electricite.git
+cd Calcul-de-facture-d-electricite
 flutter pub get
 flutter run
-\`\`\`
+​```
 
 ## Pistes d'évolution
 
