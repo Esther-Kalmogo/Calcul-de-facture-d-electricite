@@ -1,17 +1,51 @@
-# projet_final
+# Wattly
 
-A new Flutter project.
+Application mobile Flutter permettant de calculer, suivre et historiser sa consommation électrique, en se basant sur les relevés réels du compteur (ancien/nouvel indice) et les tarifs en vigueur au Maroc.
 
-## Getting Started
+## Contexte du projet
 
-This project is a starting point for a Flutter application.
+Wattly est né d'une méthode manuelle utilisée pour estimer une facture d'électricité avant même de recevoir le relevé officiel : à partir de l'ancien et du nouvel indice du compteur, on peut calculer précisément la consommation et anticiper le montant à payer. Ce projet formalise cette méthode dans une application mobile.
 
-A few resources to get you started if this is your first Flutter project:
+Projet réalisé dans le cadre de ma formation en Licence Informatique Appliquée, 2ème année.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Fonctionnalités
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Facture réelle** : calcul de la facture à partir des indices du compteur (ancien → nouvel indice), avec :
+  - Application des tranches tarifaires progressives (ONEE)
+  - Calcul des taxes (TVA, TPPAN), calibré sur une facture réelle
+  - Validation des saisies (champs vides, valeurs invalides, indices incohérents)
+- **Historique** : liste de toutes les factures enregistrées, mise à jour automatique en temps réel
+- **Profil utilisateur** : formulaire local (nom, email, ville), sans compte en ligne, données stockées uniquement sur l'appareil
+
+## Stack technique
+
+- **Flutter / Dart** — framework de développement mobile
+- **Hive** — base de données locale (NoSQL, légère, stockage persistant sur l'appareil)
+
+## Méthodologie de calcul
+
+Les tarifs par tranche et le taux de taxes appliqués ont été **calibrés et vérifiés à partir d'une vraie facture** (SRM-CS, Casablanca-Settat), afin de rester le plus proche possible de la réalité, sans prétendre à une précision officielle à 100%.
+
+## Captures d'écran
+
+*(à ajouter)*
+
+## Installation
+
+\`\`\`bash
+git clone (https://github.com/Esther-Kalmogo/Calcul-de-facture-d-electricite)
+cd wattly
+flutter pub get
+flutter run
+\`\`\`
+
+## Pistes d'évolution
+
+- Prédiction de la prochaine facture à partir de l'historique
+- Mode électricité prépayée (système Nour)
+- Extension au suivi de la consommation d'eau
+- Export PDF de l'historique
+
+## Auteur
+
+Kalmogo Esther — Étudiant(e) en Licence Informatique Appliquée
