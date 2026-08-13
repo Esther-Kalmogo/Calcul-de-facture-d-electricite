@@ -32,22 +32,20 @@ Les tarifs par tranche et le taux de taxes appliqués ont été **calibrés et v
 
 ## Installation
 
-## Installation
-
-​```bash
+```bash
 git clone https://github.com/Esther-Kalmogo/Calcul-de-facture-d-electricite.git
 cd Calcul-de-facture-d-electricite
 flutter pub get
 flutter run
-​```
+```
 
 ## Pistes d'évolution
 
 - Prédiction de la prochaine facture à partir de l'historique
-- Mode électricité prépayée (système Nour)
+- Mode électricité prépayée 
 - Extension au suivi de la consommation d'eau
 - Export PDF de l'historique
 
 ## Auteur
 
-Kalmogo Esther — Étudiant(e) en Licence Informatique Appliquée
+Esther Kalmogo — Étudiante en Licence Informatique Appliquée
